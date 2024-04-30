@@ -35,7 +35,7 @@ let package = Package(
                     "ggml-quants.c",
                     "ggml-metal.m"
                 ],
-                publicHeadersPath: "spm-headers",
+                publicHeadersPath: "spm-headers-ggml",
                 cSettings: [
                     .unsafeFlags(["-Wno-shorten-64-to-32", "-O3", "-DNDEBUG"]),
                     .define("GGML_USE_ACCELERATE"),
