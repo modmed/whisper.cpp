@@ -20,7 +20,6 @@ let package = Package(
             exclude: [
                "bindings",
                "cmake",
-               "coreml",
                "examples",
                "extra",
                "models",
@@ -37,7 +36,10 @@ let package = Package(
                 "ggml-alloc.c",
                 "ggml-backend.c",
                 "ggml-quants.c",
-                "ggml-metal.m"
+                "ggml-metal.m",
+                "whisper-decoder-impl.m",
+                "whisper-encoder-impl.m",
+                "whisper-encode.m"
             ],
             resources: [.process("ggml-metal.metal")],
             publicHeadersPath: "spm-headers",
