@@ -6,7 +6,7 @@ let package = Package(
     name: "whisper",
     platforms: [
         .macOS(.v12),
-        .iOS(.v14),
+        .iOS(.v15),
         .watchOS(.v4),
         .tvOS(.v14)
     ],
@@ -39,7 +39,7 @@ let package = Package(
                 "ggml-metal.m",
                 "whisper-decoder-impl.m",
                 "whisper-encoder-impl.m",
-                "whisper-encode.m"
+                "whisper-encoder.mm"
             ],
             resources: [.process("ggml-metal.metal")],
             publicHeadersPath: "spm-headers",
@@ -48,8 +48,8 @@ let package = Package(
                 .define("GGML_USE_ACCELERATE"),
                 .unsafeFlags(["-fno-objc-arc"]),
                 .define("GGML_USE_METAL"),
-                .define("WHISPER_USE_COREML", .when(platforms: [.macOS, .macCatalyst, .iOS])),
-                .define("WHISPER_COREML_ALLOW_FALLBACK", .when(platforms: [.macOS, .macCatalyst, .iOS]))
+                .define("WHISPER_USE_COREML"),
+                .define("WHISPER_COREML_ALLOW_FALLBACK")
                 // NOTE: NEW_LAPACK will required iOS version 16.4+
                 // We should consider add this in the future when we drop support for iOS 14
                 // (ref: ref: https://developer.apple.com/documentation/accelerate/1513264-cblas_sgemm?language=objc)
@@ -57,7 +57,8 @@ let package = Package(
                 // .define("ACCELERATE_LAPACK_ILP64")
             ],
             linkerSettings: [
-                .linkedFramework("Accelerate")
+                .linkedFramework("Accelerate"),
+                .linkedFramework("CoreML")
             ]
         )
     ],
