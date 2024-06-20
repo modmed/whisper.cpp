@@ -123,6 +123,8 @@ extern "C" {
         struct whisper_aheads dtw_aheads;
 
         size_t dtw_mem_size; // TODO: remove
+        
+        int coreml_compute_units; // CoreML MLComputeUnits
     };
 
     typedef struct whisper_token_data {

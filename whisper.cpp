@@ -3227,7 +3227,7 @@ struct whisper_state * whisper_init_state(whisper_context * ctx) {
     WHISPER_LOG_INFO("%s: loading Core ML model from '%s'\n", __func__, path_coreml.c_str());
     WHISPER_LOG_INFO("%s: first run on a device may take a while ...\n", __func__);
 
-    state->ctx_coreml = whisper_coreml_init(path_coreml.c_str());
+    state->ctx_coreml = whisper_coreml_init(path_coreml.c_str(), ctx->params.coreml_compute_units);
     if (!state->ctx_coreml) {
         WHISPER_LOG_ERROR("%s: failed to load Core ML model from '%s'\n", __func__, path_coreml.c_str());
 #ifndef WHISPER_COREML_ALLOW_FALLBACK
@@ -3390,6 +3390,7 @@ struct whisper_context_params whisper_context_default_params() {
             /*.heads            =*/ NULL,
         },
         /*.dtw_mem_size         =*/ 1024*1024*128,
+        /*.coreml_compute_units =*/ 2, /* All */
     };
     return result;
 }

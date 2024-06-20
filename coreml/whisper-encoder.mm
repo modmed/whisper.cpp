@@ -17,16 +17,14 @@ struct whisper_coreml_context {
     const void * data;
 };
 
-struct whisper_coreml_context * whisper_coreml_init(const char * path_model) {
+struct whisper_coreml_context * whisper_coreml_init(const char * path_model, int coreml_compute_units) {
     NSString * path_model_str = [[NSString alloc] initWithUTF8String:path_model];
 
     NSURL * url_model = [NSURL fileURLWithPath: path_model_str];
 
     // select which device to run the Core ML model on
     MLModelConfiguration *config = [[MLModelConfiguration alloc] init];
-    // config.computeUnits = MLComputeUnitsCPUAndGPU;
-    //config.computeUnits = MLComputeUnitsCPUAndNeuralEngine;
-    config.computeUnits = MLComputeUnitsAll;
+    config.computeUnits = (NSInteger)coreml_compute_units;
 
     const void * data = CFBridgingRetain([[whisper_encoder_impl alloc] initWithContentsOfURL:url_model configuration:config error:nil]);
 
