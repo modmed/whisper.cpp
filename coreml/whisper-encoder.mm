@@ -24,7 +24,7 @@ struct whisper_coreml_context * whisper_coreml_init(const char * path_model, int
 
     // select which device to run the Core ML model on
     MLModelConfiguration *config = [[MLModelConfiguration alloc] init];
-    config.computeUnits = (NSInteger)coreml_compute_units;
+    config.computeUnits = (MLComputeUnits)coreml_compute_units;
 
     const void * data = CFBridgingRetain([[whisper_encoder_impl alloc] initWithContentsOfURL:url_model configuration:config error:nil]);
 
